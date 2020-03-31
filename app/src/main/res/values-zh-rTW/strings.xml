@@ -9,4 +9,12 @@
 	<string name="tie">這是一個平局！</string>
 	<string name="human_win">你贏了！</string>
 	<string name="android_win">安卓贏了！</string>
+	<string name="humanWin">你贏了：％d</string>
+	<string name="androidWin">Android的勝利：％d</string>
+	<string name="aTie">領帶：％d</string>
+	<string name="menu_quit">放棄</string>
+	<string name="menu_level1">簡單</string>
+	<string name="menu_level2">更難</string>
+	<string name="menu_level3">專家</string>
+	<string name="rating">評價我的應用程序！</string>
 </resources>

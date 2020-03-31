@@ -11,4 +11,9 @@
     <string name="humanWin">You win:%d</string>
     <string name="androidWin">Android win:%d</string>
     <string name="aTie">Tie:%d</string>
+    <string name="menu_quit">Quit</string>
+    <string name="menu_level1">Easy</string>
+    <string name="menu_level2">Harder</string>
+    <string name="menu_level3">Expert</string>
+    <string name="rating">Rate my app!</string>
 </resources>

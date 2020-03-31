@@ -4,10 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     // Represents the internal state of the game
@@ -21,12 +26,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTie;
     // Restart Button
     private Button startButton;
+    private MediaPlayer mediaPlayer;
     // Game Over
     Boolean mGameOver;
     Boolean humanFirst = true;
     int humanWin = 0;
     int androidWin = 0;
     int tie = 0;
+    int level;
 
 
     //--- Set up the game board.
@@ -40,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
             mBoardButtons[i].setOnClickListener(new ButtonClickListener(i));
         }
         //---Computer goes first
-        if (humanFirst){
+        if (humanFirst) {
             mInfoTextView.setText(R.string.your_turn);
-            int move = mGame.getComputerMove();
+            int move = mGame.getComputerMove(level);
             setMove(TicTacToeGame.COMPUTER_PLAYER, move);
             humanFirst = false;
         }
@@ -58,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         startNewGame();
     }
 
+    //--- set the clicked buttons to unclickable and marked.
     private void setMove(char player, int location) {
         mGame.setMove(player, location);
         mBoardButtons[location].setEnabled(false);
@@ -71,11 +79,17 @@ public class MainActivity extends AppCompatActivity {
     //---Handles clicks on the game board buttons
     private class ButtonClickListener implements View.OnClickListener {
         int location;
+
         public ButtonClickListener(int location) {
             this.location = location;
         }
+
         @Override
         public void onClick(View v) {
+            Uri uri = Uri.parse("android.resource://"
+                    + getPackageName() + "/" + R.raw.click);
+            mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
+            mediaPlayer.start();
             if (mGameOver == false) {
                 if (mBoardButtons[location].isEnabled()) {
                     setMove(TicTacToeGame.HUMAN_PLAYER, location);
@@ -83,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     int winner = mGame.checkForWinner();
                     if (winner == 0) {
                         mInfoTextView.setText(R.string.android_turn);
-                        int move = mGame.getComputerMove();
+                        int move = mGame.getComputerMove(level);
                         setMove(TicTacToeGame.COMPUTER_PLAYER, move);
                         winner = mGame.checkForWinner();
                     }
@@ -99,19 +113,60 @@ public class MainActivity extends AppCompatActivity {
                     } else if (winner == 2) {
                         mInfoTextView.setTextColor(Color.rgb(0, 200, 0));
                         mInfoTextView.setText(R.string.human_win);
+                        mInfoTextView.animate().scaleX(2f).scaleY(2f).setDuration(2000);
+                        uri = Uri.parse("android.resource://"
+                                + getPackageName() + "/" + R.raw.victory);
+                        mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
+                        mediaPlayer.start();
                         humanWin += 1;
                         mHumanWin.setText(getBaseContext().getString(R.string.humanWin, humanWin));
                         mGameOver = true;
                     } else {
                         mInfoTextView.setTextColor(Color.rgb(200, 0, 0));
                         mInfoTextView.setText(R.string.android_win);
+                        mInfoTextView.animate().scaleX(2f).scaleY(2f).setDuration(2000);
+                        uri = Uri.parse("android.resource://"
+                                + getPackageName() + "/" + R.raw.defeat);
+                        mediaPlayer = MediaPlayer.create(getApplicationContext(), uri);
+                        mediaPlayer.start();
                         androidWin += 1;
-                        mAndroidWin.setText(getBaseContext().getString(R.string.androidWin, androidWin));
+                        mAndroidWin.setText(getBaseContext().getString(R.string.androidWin,
+                                androidWin));
                         mGameOver = true;
                     }
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+// Inflate the menu; this adds items to the aaction bar if it is present
+    getMenuInflater().inflate(R.menu.menu_options, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.menu_level1:
+                Toast.makeText(this, "You set the AI difficulty to Easy !", Toast.LENGTH_LONG).show();
+                level = 1;
+                return true;
+            case R.id.menu_level2:
+                Toast.makeText(this, "You set the AI difficulty to Harder !", Toast.LENGTH_LONG).show();
+                level = 2;
+                return true;
+            case R.id.menu_level3:
+                Toast.makeText(this, "You set the AI difficulty to Expert !", Toast.LENGTH_LONG).show();
+                level = 3;
+                return true;
+            case R.id.menu_quit:
+                finish();
+                return true;
+        }
+        return false;
     }
 
     @Override

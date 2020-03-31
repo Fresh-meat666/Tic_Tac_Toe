@@ -7,5 +7,13 @@
     <string name="your_turn">到你了</string>
     <string name="tie">平局啦！</string>
     <string name="human_win">你赢啦!</string>
-    <string name="android_win">你输啦！😭</string>
+    <string name="android_win">就这？</string>
+    <string name="menu_quit">退出</string>
+    <string name="menu_level1">简单</string>
+    <string name="menu_level2">中等</string>
+    <string name="rating">评价一下我的应用吧！</string>
+    <string name="humanWin">人类胜利：</string>
+    <string name="androidWin">机器胜利：</string>
+    <string name="aTie">平局：</string>
+    <string name="menu_level3">专家</string>
 </resources>
