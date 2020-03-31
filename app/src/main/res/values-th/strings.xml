@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Tic Tac Toe</string>
+	<string name="info">ข้อมูล</string>
+	<string name="start_a_new_game">เริ่มเกมใหม่</string>
+	<string name="android_turn">มัน \ \'s Android \' s เปิด</string>
+	<string name="human_first">คุณไปก่อน.</string>
+	<string name="your_turn">มัน \ \'s เปิดของคุณ (X)</string>
+	<string name="tie">มัน \ \'s ผูก!</string>
+	<string name="human_win">คุณได้รับรางวัล!</string>
+	<string name="android_win">วอน Android!</string>
+</resources>

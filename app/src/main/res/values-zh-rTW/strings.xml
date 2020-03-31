@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">井字</string>
+	<string name="info">信息</string>
+	<string name="start_a_new_game">開始新遊戲</string>
+	<string name="android_turn">它\的Android \談“。</string>
+	<string name="human_first">你先走吧。</string>
+	<string name="your_turn">它\'輪到你了（X）。</string>
+	<string name="tie">這是一個平局！</string>
+	<string name="human_win">你贏了！</string>
+	<string name="android_win">安卓贏了！</string>
+</resources>
